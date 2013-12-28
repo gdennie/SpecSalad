@@ -6,9 +6,9 @@ SpecSalad
 SpecSalad allows the developer to write SpecFlow specifications without having to 
 write step definitions, avoiding the problems of maintaining large step definition 
 files which are hard to maintain and navigate through. Instead, the idea of tasks 
-is used to identify what needs to be done and roles those who will do them. This 
-approach splits the implementation of the tests into manageable chunks, making 
-them easy to maintain and navigate.
+is used to identify what needs to be done, and roles, for those who will perform 
+them. This approach splits the implementation of the tests into manageable chunks, 
+making them easier to maintain and navigate.
 
 ---------------------------------------------------------------------------------
 Language Summary
@@ -50,15 +50,21 @@ app config file created by SpecFlow
 
 USING SPECSALAD
 SpecSalad enhances the Gurkin language with formal text to allow parsing of the 
-features from a human readable narative. The description of this formalism uses 
-the following convention (RegEx) for brevity:
+features, providing a human readable narative. The description of this formalism 
+uses the following convention (RegEx) for brevity:
  
-        (a|b|..)      - Required value alternatives where an empty side means 
-                        optional
-        (a|b|..)?     - Optional value alternatives group of values alternatives
+        (a|b|..)      - Value alternatives Required
+        (a|b|..)?     - Value alternatives Optional
         a?            - Optional value
-        (?<name>.*)   - Identifies named value that will be captured for test 
-                        construction
+        (?<part>.*)   - identifies the part the captured text, .* ,will plays in 
+                        the SpecSalad treatment of the Gerhkin language. Part can 
+                        be the following:
+                          - role name, 
+                          - task class name,
+                          - single_value, 
+                          - key for the shared Value dictionary, or 
+                          - value associated with the preceeding key for the 
+                            shared dictionary.
 
  --GIVEN SYNTAX--
 
@@ -78,8 +84,8 @@ scenario.
          (  [,:] 
             (?<single_value>.*) 
             |
-            (         (?<name>.*) '(?<value>.*)' 
-               ( (,)? (?<name>.*) '(?<value>.*)' )* 
+            (         (?<key>.*) '(?<value>.*)' 
+               ( (,)? (?<key>.*) '(?<value>.*)' )* 
             )+ 
          )?
       
